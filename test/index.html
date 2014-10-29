@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Date Picker</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../src/bower_components/bootstrap/dist/css/bootstrap.css"></link>
+    <link rel="stylesheet" type="text/css" href="../src/bower_components/ng-grid/ng-grid.css"></link>
+    
+    <script src="../src/bower_components/jquery/dist/jquery.js"></script>
+    <script src="../src/bower_components/angular/angular.js"></script>
+    <script src="../src/bower_components/ng-grid/build/ng-grid.js"></script>
+    <script src="../src/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="../src/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="../build/ng-grid-date.js"></script>
+    <style>
+        .gridStyle {
+            border: 1px solid rgb(212,212,212);
+            width: 900px; 
+            height: 900px
+        }
+    </style>
+    <script>
+        var app = angular.module('gridDateTest', ['ngGrid', 'ngGridDate', 'ui.bootstrap']);
+        
+        app.controller('testDateController', function($scope, $dateTemplates) {
+            $scope.myData = [{name: "Moroni", age: 50, dob: new Date()},
+                     {name: "Tiancum", age: 43, dob: new Date(1979, 0, 22)},
+                     {name: "Jacob", age: 27, dob: "22/01/1979"},
+                     {name: "Nephi", age: 29, dob: "22/01/1979"},
+                     {name: "Enos", age: 34, dob: "22/01/1979"}];
+            $scope.gridOptions = { 
+                data: 'myData',
+                rowTemplate: $dateTemplates.row,
+                columnDefs: [
+                    { field: 'name', displayName: 'Name', width: 90 },
+                    { field: 'age', displayName: 'Age', width: 80 },
+                    { 
+                        field: 'dob', 
+                        displayName: 'Date Of Birth',
+                        cellFilter: 'date:\'dd/MM/yyyy\'',
+                        width: 200, 
+                        editableCellTemplate: $dateTemplates.editCell,
+                        enableCellEdit: true
+                    }
+                ]
+            };
+   
+        });
+    </script>
+</head>
+<body ng-app="gridDateTest" ng-controller="testDateController">
+    <div class="gridStyle" ng-grid="gridOptions">
+    </div>
+</body>
+</html>
