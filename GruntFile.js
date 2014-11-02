@@ -12,10 +12,10 @@ module.exports = function(grunt) {
         'src/*.js',
         'src/directives/*.js',
         'src/services/*.js',
-        '<%= ngtemplates.ngGridDate.dest %>'
+        '<%= ngtemplates.ngGridDatePicker.dest %>'
     ],
     ngtemplates: {
-        ngGridDate: {
+        ngGridDatePicker: {
             cwd: 'src/templates',
             src: '*.html',
             dest: "build/<%= pkg.name %>.js"

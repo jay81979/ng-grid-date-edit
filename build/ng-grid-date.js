@@ -1,8 +1,9 @@
 "use strict";
-var ngGridDateDirectives = angular.module('ngGridDate.directives', []);
-var ngGridDateServices = angular.module('ngGridDate.services', []);
-angular.module('ngGridDate', ['ngGridDate.directives', 'ngGridDate.services']);
+var ngGridDatePickerDirectives = angular.module('ngGridDatePicker.directives', []);
+var ngGridDatePickerServices = angular.module('ngGridDatePicker.services', []);
+angular.module('ngGridDatePicker', ['ngGridDatePicker.directives', 'ngGridDatePicker.services']);
 
+/*
 ngGridDateDirectives.directive('ngDateInput', [function() {
     return {
         require: 'ngModel',
@@ -76,7 +77,27 @@ ngGridDateDirectives.directive('ngDateInput', [function() {
         }
     };
 }]);
-ngGridDateServices.factory('$dateTemplates', ['$templateCache', function($templateCache) {
+*/
+ngGridDatePickerDirectives.directive('ngGridDatePicker', [function() {
+    return {
+        restrict: 'A',
+        link: function (scope, elm, attrs, ngModel) {
+            var value = scope.$parent.$parent.row.entity[scope.$parent.col.field];
+            if(value instanceof Date)
+            {
+                scope.dt = value;
+            }
+            else {
+                alert("not a date");
+            }
+            scope.$watch('dt', function(newValue, oldValue) {
+                scope.$parent.$parent.row.entity[scope.$parent.col.field] = newValue;
+                scope.$emit('ngGridEventEndCellEdit');
+            });
+        }
+    };
+}]);
+ngGridDatePickerServices.factory('$dateTemplates', ['$templateCache', function($templateCache) {
     var dateTemplates = {};
     
     dateTemplates.row = "rowTemplate.html";
@@ -84,11 +105,11 @@ ngGridDateServices.factory('$dateTemplates', ['$templateCache', function($templa
 
     return dateTemplates;
 }]);
-angular.module('ngGridDate').run(['$templateCache', function($templateCache) {
+angular.module('ngGridDatePicker').run(['$templateCache', function($templateCache) {
   'use strict';
 
   $templateCache.put('editableDateCellTemplate.html',
-    "<input ng-class=\"'colt' + col.index\" datepicker-popup=\"dd/MM/yyyy\" is-open=\"true\" ng-date-input=\"COL_FIELD\" ng-change=\"onChange(COL_FIELD)\" ng-model=\"COL_FIELD\" />"
+    "<datepicker ng-model=\"dt\" ng-grid-date-picker min-date=\"minDate\" show-weeks=\"false\" class=\"well well-sm\" style=\"position:absolute; z-index: 10;\"></datepicker>"
   );
 
 

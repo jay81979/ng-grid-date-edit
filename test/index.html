@@ -17,12 +17,12 @@
     <style>
         .gridStyle {
             border: 1px solid rgb(212,212,212);
-            width: 900px; 
+            width: 400px; 
             height: 900px
         }
     </style>
     <script>
-        var app = angular.module('gridDateTest', ['ngGrid', 'ngGridDate', 'ui.bootstrap']);
+        var app = angular.module('gridDateTest', ['ngGrid', 'ngGridDatePicker', 'ui.bootstrap']);
         
         app.controller('testDateController', function($scope, $dateTemplates) {
             $scope.myData = [{name: "Moroni", age: 50, dob: new Date()},
@@ -33,9 +33,11 @@
             $scope.gridOptions = { 
                 data: 'myData',
                 rowTemplate: $dateTemplates.row,
+                enableCellEdit: true,
+                enableCellEditOnFocus: true,
+                enableRowSelection: false,
                 columnDefs: [
-                    { field: 'name', displayName: 'Name', width: 90 },
-                    { field: 'age', displayName: 'Age', width: 80 },
+                    { field: 'name', displayName: 'Name', width: 100, enableCellEdit: false },
                     { 
                         field: 'dob', 
                         displayName: 'Date Of Birth',
@@ -43,7 +45,8 @@
                         width: 200, 
                         editableCellTemplate: $dateTemplates.editCell,
                         enableCellEdit: true
-                    }
+                    },
+                    { field: 'age', displayName: 'Age', width: 100, enableCellEdit: false }
                 ]
             };
    

@@ -1,3 +1,4 @@
+/*
 ngGridDateDirectives.directive('ngDateInput', [function() {
     return {
         require: 'ngModel',
@@ -71,3 +72,4 @@ ngGridDateDirectives.directive('ngDateInput', [function() {
         }
     };
 }]);
+*/

@@ -1,4 +1,4 @@
 "use strict";
-var ngGridDateDirectives = angular.module('ngGridDate.directives', []);
-var ngGridDateServices = angular.module('ngGridDate.services', []);
-angular.module('ngGridDate', ['ngGridDate.directives', 'ngGridDate.services']);
+var ngGridDatePickerDirectives = angular.module('ngGridDatePicker.directives', []);
+var ngGridDatePickerServices = angular.module('ngGridDatePicker.services', []);
+angular.module('ngGridDatePicker', ['ngGridDatePicker.directives', 'ngGridDatePicker.services']);
